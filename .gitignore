@@ -1,0 +1,185 @@
+# ==========================================
+# Python
+# ==========================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Compilados / builds
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+
+# ==========================================
+# Ambientes virtuais
+# ==========================================
+
+.venv/
+venv/
+env/
+ENV/
+.ENV/
+virtualenv/
+
+
+# ==========================================
+# Django
+# ==========================================
+
+# Banco SQLite local
+db.sqlite3
+db.sqlite3-journal
+
+# Cache do Django
+*.log
+
+
+# ==========================================
+# Variáveis de ambiente e configurações locais
+# ==========================================
+
+.env
+.env.*
+!.env.example
+
+# Configurações locais
+local_settings.py
+
+
+# ==========================================
+# Testes e cobertura
+# ==========================================
+
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+.hypothesis/
+coverage.xml
+*.cover
+*.py,cover
+
+
+# ==========================================
+# Type checkers
+# ==========================================
+
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+
+# ==========================================
+# Jupyter Notebook
+# ==========================================
+
+.ipynb_checkpoints/
+
+
+# ==========================================
+# IDEs e editores
+# ==========================================
+
+# Visual Studio Code
+.vscode/
+
+# PyCharm / IntelliJ
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+
+# Emacs
+*~
+\#*\#
+
+
+# ==========================================
+# Sistema operacional
+# ==========================================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+
+
+# ==========================================
+# Arquivos temporários
+# ==========================================
+
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+
+# ==========================================
+# Logs
+# ==========================================
+
+*.log
+logs/
+
+
+# ==========================================
+# Node.js (caso o projeto utilize frontend)
+# ==========================================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# ==========================================
+# Docker
+# ==========================================
+
+docker-compose.override.yml
+
+
+# ==========================================
+# Arquivos de configuração local
+# ==========================================
+
+*.local
