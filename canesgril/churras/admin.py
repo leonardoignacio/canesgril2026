@@ -5,7 +5,7 @@ class ListandoPratos(admin.ModelAdmin):
     list_display = ('id', 'nome_prato', 'categoria', 'tempo_preparo', 'publicado')
     list_display_links = ('id', 'nome_prato')
     search_fields = ('nome_prato','categoria')
-    list_filter = ('nome_prato', 'categoria','publicado')
+    list_filter = ( 'publicado', 'categoria',)
     list_editable = ('publicado',)
     list_per_page = 20
     actions = ['marcar_como_publicado']
