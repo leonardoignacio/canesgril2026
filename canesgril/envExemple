@@ -1,0 +1,6 @@
+SECRET_KEY=django-insecure-ui1d1mx!$p7r4i+_%c+=6%@@9@ngmf67jqwr^ucbqrdz4oe+7
+DEBUG=True
+DATABASE_URL='postgresql://neondb_owner:npg_dM3kinWOLGA4@ep-morning-mode-b7wmcpjc-pooler.c-13.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+CLOUD_NAME=dajvc82q4
+API_KEY=889455144699938
+API_SECRET=WaeDgqw_VdFxJJ4zOqUn3sz4wTg

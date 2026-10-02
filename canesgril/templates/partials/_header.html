@@ -1,0 +1,88 @@
+{% load static %}
+<!-- Preloader -->
+<div id="preloader">
+    <i class="circle-preloader"></i>
+    <img src="{% static 'img/core-img/logo.png' %}" alt="Carregando">
+</div>
+
+<!-- Search Wrapper -->
+<div class="search-wrapper">
+    <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="{% url 'churras:buscar' %}" method="get">
+                    <input type="search" name="buscar" placeholder="O que está procurando...">
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+    <!-- Top Header Area -->
+    <div class="top-header-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-between">
+                <div class="col-12 col-sm-6">
+                    <div class="breaking-news">
+                        <div id="breakingNewsTicker" class="ticker">
+                            <ul>
+                                <li><a href="#">Boas vindas!</a></li>
+                                <li><a href="#">O melhor Churrasco</a></li>
+                                <li><a href="#">Você encontra aqui!</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="top-social-info text-right">
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar Area -->
+    <div class="delicious-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <nav class="classy-navbar justify-content-between" id="deliciousNav">
+                    <!-- Logo -->
+                    <a class="nav-brand" href="{% url 'churras:index' %}">
+                        <img src="{% static 'img/core-img/logo.png' %}" alt="Canes Grill">
+                    </a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="{% url 'churras:index' %}">Home</a></li>
+                                <!-- Futuramente dinâmico ou apontando para categorias -->
+                                <li><a href="#">Churrasco</a></li>
+                            </ul>
+
+                            <div class="search-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->

@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 #from funcionario.models import Funcionario
 import uuid
-#from cloudinary.models import CloudinaryField
+from cloudinary.models import CloudinaryField
 def get_file_path(_instance, filename):
     name = filename.split('.')[0] 
     ext = filename.split('.')[-1]
@@ -20,16 +20,17 @@ class Prato(models.Model):
     date_prato = models.DateTimeField(default=datetime.now, blank=True)
     funcionario = models.ForeignKey(User, on_delete=models.CASCADE)
     publicado = models.BooleanField(default=False)
-    '''foto_prato = CloudinaryField(
+    foto_prato = CloudinaryField(
         'foto_do_prato', 
         folder='canesgril_pratos', #NOME DA PASTA DENTRO DO CLOUDINARY
         transformation={ #redimencionamento da imagem
             'width': 600,
             'crop': 'limit',#Outras opções: 'fill', 'scale', 'fit', 'pad'
+            'quality': 'auto' # Otimiza a imagem automaticamente
         },
         blank=True,
         null=True
-    )'''
+    )
 
     def __str__(self):
         return f'{self.nome_prato}-{self.categoria}'
