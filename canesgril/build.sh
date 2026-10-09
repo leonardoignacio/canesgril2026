@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# O comando abaixo garante que o script falhe imediatamente se qualquer comando falhar (Fail-Fast)
 set -o errexit
 
 echo "Instalando dependências..."
@@ -10,3 +9,7 @@ python manage.py collectstatic --no-input
 
 echo "Aplicando migrações no banco de dados Neon..."
 python manage.py migrate
+
+# Comandos no Render
+#Build Command: ./build.sh
+#Start Command: gunicorn canesgril.wsgi:application
