@@ -6,3 +6,5 @@ cloudinary
 python-decouple
 psycopg2-binary
 dj-database-url
+gunicorn
+whitenoise

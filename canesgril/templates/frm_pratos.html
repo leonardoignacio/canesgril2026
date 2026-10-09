@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if prato %}Editar Prato{% else %}Criar Prato{% endif %}{% endblock %}
+
+{% block content %}
+<div class="contact-area section-padding-0-80 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <div class="section-heading">
+                    <!-- Título Dinâmico -->
+                    <h3>{% if prato %}Edite seu prato, {{ user.username }}{% else %}Crie seu prato, {{ user.username }}!{% endif %}</h3>
+                    <p class="text-muted">{% if not prato %}Todos os campos são obrigatórios{% endif %}</p>
+                </div>
+            </div>
+        </div>
+        
+        {% include 'partials/_alertas.html' %}
+        
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="contact-form-area">
+                    <!-- Rota de Action Dinâmica -->
+                    <form action="{% if prato %}{% url 'usuarios:atualiza_prato' %}{% else %}{% url 'usuarios:cria_prato' %}{% endif %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Injeção do ID Oculto apenas na edição -->
+                        {% if prato %}
+                            <input type="hidden" name="prato_id" value="{{ prato.id }}">
+                        {% endif %}
+                        
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="nome_prato"><b>Título do prato</b></label>
+                                <!-- Se prato não existir, value será renderizado como vazio -->
+                                <input type="text" id="nome_prato" class="form-control" name="nome_prato" value="{{ prato.nome_prato }}" placeholder="Ex. Maminha no limão" required>
+                            </div>
+                            
+                            <div class="col-12 mb-3">
+                                <label for="ingredientes"><b>Ingredientes</b></label>
+                                <textarea class="form-control" name="ingredientes" rows="4" placeholder="Lista de ingredientes..." required>{{ prato.ingredientes }}</textarea>
+                            </div>
+                            
+                            <div class="col-12 mb-3">
+                                <label for="modo_preparo"><b>Modo de preparo</b></label>
+                                <textarea class="form-control" name="modo_preparo" rows="4" placeholder="Passo a passo..." required>{{ prato.modo_preparo }}</textarea>
+                            </div>
+                            
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="tempo_preparo"><b>Tempo (minutos)</b></label>
+                                <input type="number" class="form-control" name="tempo_preparo" value="{{ prato.tempo_preparo }}" placeholder="Ex. 45" required>
+                            </div>
+                            
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="rendimento"><b>Rendimento</b></label>
+                                <input type="text" class="form-control" name="rendimento" value="{{ prato.rendimento }}" placeholder="Ex. Serve 4 pessoas" required>
+                            </div>
+                            
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="categoria"><b>Categoria</b></label>
+                                <input type="text" class="form-control" name="categoria" value="{{ prato.categoria }}" placeholder="Ex. Churrasco" required>
+                            </div>
+                            
+                            <div class="col-12 col-md-12 mb-4">
+                                <label for="publicado"><b>Visibilidade</b></label>
+                                <select class="form-control" name="publicado" required>
+                                    <option value="True" {% if prato and prato.publicado %}selected{% elif not prato %}selected{% endif %}>Publicado (Visível para todos)</option>
+                                    <option value="False" {% if prato and not prato.publicado %}selected{% endif %}>Rascunho (Apenas no seu Dashboard)</option>
+                                </select>
+                            </div>
+
+                            <!-- Lógica de visualização da foto apenas na edição -->
+                            {% if prato %}
+                                <div class="col-12 col-md-6 mb-4 text-center">
+                                    <label><b>Foto Atual</b></label><br>
+                                    {% if prato.foto_prato %}
+                                        <img src="{{ prato.foto_prato.url }}" alt="Foto atual" class="img-thumbnail" style="max-height: 150px;">
+                                    {% else %}
+                                        <p class="text-muted">Sem imagem</p>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            
+                            <!-- O campo file é obrigatório na criação e opcional na edição -->
+                            <div class="col-12 {% if prato %}col-md-6{% else %}col-md-12{% endif %} mb-4">
+                                <label for="foto_prato"><b>{% if prato %}Alterar Foto (Opcional){% else %}Foto do Prato{% endif %}</b></label>
+                                <input type="file" class="form-control" name="foto_prato" {% if not prato %}required{% endif %}>
+                            </div>
+                            
+                            <div class="col-12 text-center">
+                                <!-- Botão Dinâmico -->
+                                <button class="btn btn-success px-5" type="submit">{% if prato %}Atualizar Prato{% else %}Cadastrar Prato{% endif %}</button>
+                                <a href="{% url 'usuarios:dashboard' %}" class="btn btn-secondary px-4 ml-2">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

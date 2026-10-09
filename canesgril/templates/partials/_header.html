@@ -1,8 +1,9 @@
 {% load static %}
+
 <!-- Preloader -->
 <div id="preloader">
     <i class="circle-preloader"></i>
-    <img src="{% static 'img/core-img/logo.png' %}" alt="Carregando">
+    <img src="{% static 'img/core-img/pizza.png'%}" alt="Carregando">
 </div>
 
 <!-- Search Wrapper -->
@@ -11,7 +12,9 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="{% url 'churras:buscar' %}" method="get">
+                <!-- ALTERADO: Namespace churras:buscar -->
+                <form action="{% url 'churras:buscar' %}">
+                    {% csrf_token %}
                     <input type="search" name="buscar" placeholder="O que está procurando...">
                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
@@ -22,7 +25,6 @@
 
 <!-- ##### Header Area Start ##### -->
 <header class="header-area">
-    <!-- Top Header Area -->
     <div class="top-header-area">
         <div class="container h-100">
             <div class="row h-100 align-items-center justify-content-between">
@@ -52,17 +54,13 @@
         <div class="classy-nav-container breakpoint-off">
             <div class="container">
                 <nav class="classy-navbar justify-content-between" id="deliciousNav">
-                    <!-- Logo -->
-                    <a class="nav-brand" href="{% url 'churras:index' %}">
-                        <img src="{% static 'img/core-img/logo.png' %}" alt="Canes Grill">
-                    </a>
+                    <!-- ALTERADO: Namespace churras:index -->
+                    <a class="nav-brand" href="{% url 'churras:index' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
 
-                    <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
                     </div>
 
-                    <!-- Menu -->
                     <div class="classy-menu">
                         <div class="classycloseIcon">
                             <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
@@ -70,19 +68,28 @@
 
                         <div class="classynav">
                             <ul>
-                                <li><a href="{% url 'churras:index' %}">Home</a></li>
-                                <!-- Futuramente dinâmico ou apontando para categorias -->
-                                <li><a href="#">Churrasco</a></li>
-                            </ul>
+                                <!-- ALTERADO: Namespaces completos para usuários e churras -->
+                                {% if user.is_authenticated %}
+                                    <li><a href="{% url 'churras:index' %}">Página principal</a></li>
+                                    <li><a href="{% url 'usuarios:dashboard' %}">Meus Pratos</a></li>
+                                    <li><a href="{% url 'usuarios:cria_prato' %}">Criar Pratos</a></li>
+                                    {% if user.is_superuser %} 
+                                        <li><a href="{% url 'admin:index' %}">Admin</a></li> 
+                                    {% endif %}
+                                    <li><a href="{% url 'usuarios:logout' %}">Logout</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'churras:index' %}">Home</a></li>
+                                    <li><a href="{% url 'usuarios:cadastro' %}">Cadastro</a></li>
+                                    <li><a href="{% url 'usuarios:login' %}">Login</a></li>
+                                {% endif %}
+                            </ul>  
 
                             <div class="search-btn">
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </div>
                         </div>
-                    </div>
-                </nav>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
-</header>
-<!-- ##### Header Area End ##### -->
+    </header>

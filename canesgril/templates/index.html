@@ -4,7 +4,6 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<!-- ##### Best Receipe Area Start ##### -->
 <section class="best-receipe-area mt-5">
     <div class="container">
         <!-- Título da Busca (se houver) -->
@@ -19,14 +18,14 @@
         <div class="row">
             <!-- Padrão elegante: Loop direto com fallback para iteráveis vazios -->
             {% for prato in lista_pratos %}
-                <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <!-- Lógica de placeholder caso não tenha imagem, preparo para Cloudinary -->
+                    <div class="single-best-receipe-area mb-30 shadow-sm">
+                        
+                        <!-- ALTERADO: Controle de simetria com altura fixa e object-fit -->
                         {% if prato.foto_prato %}
-                            <img src="{{ prato.foto_prato.url }}" alt="{{ prato.nome_prato }}">
+                            <img src="{{ prato.foto_prato.url }}" alt="{{ prato.nome_prato }}" style="height: 250px; width: 100%; object-fit: cover;">
                         {% else %}
-                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="Sem imagem">
+                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="Sem imagem" style="height: 250px; width: 100%; object-fit: cover;">
                         {% endif %}
                         
                         <div class="receipe-content">
@@ -37,7 +36,6 @@
                     </div>
                 </div>
             {% empty %}
-                <!-- Este bloco renderiza automaticamente se 'lista_pratos' for vazia -->
                 <div class="col-12">
                     <div class="alert alert-info text-center" role="alert">
                         Nenhuma receita encontrada no momento.
@@ -71,5 +69,4 @@
 
     </div>
 </section>
-<!-- ##### Best Receipe Area End ##### -->
 {% endblock %}

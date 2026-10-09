@@ -1,0 +1,40 @@
+<div class="row mt-4 mb-5">
+    <div class="col-12">
+        <div class="pagination-area d-flex justify-content-center">
+            {% if lista_pratos.has_other_pages %}
+                <nav>
+                    <ul class="pagination">
+                        <!-- Botão Anterior -->
+                        {% if lista_pratos.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ lista_pratos.previous_page_number }}{% if buscar %}&buscar={{ buscar }}{% endif %}">Anterior</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+                        {% endif %}
+
+                        <!-- Números das Páginas -->
+                        {% for pagina in lista_pratos.paginator.page_range %}
+                            {% if lista_pratos.number == pagina %}
+                                <li class="page-item active"><span class="page-link">{{ pagina }}</span></li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ pagina }}{% if buscar %}&buscar={{ buscar }}{% endif %}">{{ pagina }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- Botão Próximo -->
+                        {% if lista_pratos.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ lista_pratos.next_page_number }}{% if buscar %}&buscar={{ buscar }}{% endif %}">Próxima</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">Próxima</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
