@@ -11,9 +11,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SEGURANÇA: Chaves agora são lidas do arquivo .env
 SECRET_KEY = config('SECRET_KEY')
+
+# ALTERADO: Em produção (quando não houver variável DEBUG no .env do servidor), o padrão será False.
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*'] # Ajustaremos isso no momento do deploy
+# ALTERADO: Em produção, permitimos que a plataforma hospede o domínio. No Render, geralmente é *.onrender.com
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -22,9 +25,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    # ALTERADO: WhiteNoise requer o app de staticfiles para funcionar corretamente na coleta
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    
     # Terceiros
     'cloudinary',
+    
     # Apps Locais
     'churras',
     'usuarios',
@@ -32,6 +39,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # ALTERADO: WhiteNoise DEVE ser o segundo middleware, logo após a segurança
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,17 +71,10 @@ WSGI_APPLICATION = 'canesgril.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL'),
-        conn_max_age=600, # Mantém conexões abertas por 10 minutos (Connection Pooling)
+        conn_max_age=600,
         conn_health_checks=True,
     )
 }
-
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}'''
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
@@ -86,12 +88,17 @@ TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# ==========================================
+# ARQUIVOS ESTÁTICOS E WHITENOISE
+# ==========================================
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# Configuração do Cloudinary consumindo o .env
+# ALTERADO: Habilita compressão e cache agressivo (Brotli/Gzip) para os estáticos no WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Configuração do Cloudinary
 cloudinary.config( 
   cloud_name = config('CLOUD_NAME'), 
   api_key = config('API_KEY'), 
